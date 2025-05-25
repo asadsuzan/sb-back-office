@@ -1,25 +1,23 @@
-import { Schema, model } from 'mongoose';
+// blog.model.ts
+import mongoose, { Schema } from 'mongoose';
 import { IArticle } from './blog.types';
-
 
 const blogSchema = new Schema<IArticle>(
   {
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
-
     content: { type: String, required: true },
-    excerpt: { type: String },
-
-    featuredImage: { type: String },
-    tags: [{ type: String }],
-    category: { type: String },
-
-    author: { type: String, required: true }, // Can be ObjectId if you want user relation
-
+    excerpt: String,
+    featuredImage: String,
+    tags: [String],
+    author: { type: String, required: true },
+    category: String,
     published: { type: Boolean, default: false },
-    publishedAt: { type: Date },
+    publishedAt: Date,
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
-export default model<IArticle>('Blog', blogSchema);
+export default mongoose.model<IArticle>('Blog', blogSchema);
