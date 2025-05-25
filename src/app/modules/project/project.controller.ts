@@ -2,13 +2,39 @@ import { Request, Response } from "express";
 import * as projectService from "./project.service";
 import asyncHandler from "../../utils/asyncHandler";
 import sendSuccessResponse from "../../utils/successResponse";
+import { uploadImageToCloudinary } from "../../utils/imageUploadService";
+
 
 
 
 // @desc    Create a new project
+// export const createProject = asyncHandler(async (req: Request, res: Response) => {
+//   const project = await projectService.createProject(req.body);
+//   sendSuccessResponse(res, 201, "Project created successfully", project);
+// });
 export const createProject = asyncHandler(async (req: Request, res: Response) => {
-  const project = await projectService.createProject(req.body);
-  sendSuccessResponse(res, 201, "Project created successfully", project);
+ 
+
+const data = JSON.parse(req.body.data);
+
+   console.log(data)
+
+  // Upload screenshots
+  const files = req.files as Express.Multer.File[];
+  console.log(files);
+  const screenshotUrl: string[] = [];
+  for (const file of files || []) {
+    const imgUrl = await uploadImageToCloudinary(file.buffer);
+    screenshotUrl.push(imgUrl);
+  }
+
+  // Save to DB
+  const newProject = await projectService.createProject({
+    ...data,
+    screenshotUrl,
+  });
+
+  res.status(201).json({ success: true, data: newProject });
 });
 
 

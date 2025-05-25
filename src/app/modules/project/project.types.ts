@@ -15,7 +15,7 @@ export interface IProject extends Document {
     targetAudience: string;
     objectives: string[];
   };
-  screenshotUrl?: string;
+  screenshotUrl: string[];
   features: string[];
   techStack: {
     title: string;

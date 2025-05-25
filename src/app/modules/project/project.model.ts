@@ -18,7 +18,15 @@ const projectSchema = new Schema<IProject>(
       objectives: [{ type: String, required: true }],
     },
 
-    screenshotUrl: { type: String },
+   screenshotUrl: {
+      type: [String],
+      validate: {
+        validator: function (arr: string[]) {
+          return arr.length >= 1 && arr.length <= 3;
+        },
+        message: "Screenshots must contain between 1 and 3 image URLs.",
+      },
+    },
 
     features: [{ type: String, required: true }],
 
