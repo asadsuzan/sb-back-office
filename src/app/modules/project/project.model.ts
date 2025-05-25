@@ -1,5 +1,5 @@
-import mongoose, { Schema } from "mongoose";
-import { IProject } from "./project.types";
+import mongoose, { Schema } from 'mongoose';
+import { IProject } from './project.types';
 
 const projectSchema = new Schema<IProject>(
   {
@@ -19,13 +19,13 @@ const projectSchema = new Schema<IProject>(
       objectives: [{ type: String, required: true }],
     },
 
-   screenshotUrl: {
+    screenshotUrl: {
       type: [String],
       validate: {
         validator: function (arr: string[]) {
           return arr.length >= 1 && arr.length <= 3;
         },
-        message: "Screenshots must contain between 1 and 3 image URLs.",
+        message: 'Screenshots must contain between 1 and 3 image URLs.',
       },
     },
 
@@ -40,7 +40,7 @@ const projectSchema = new Schema<IProject>(
 
     lessons: [{ type: String, required: true }],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export default mongoose.model<IProject>("Project", projectSchema);
+export default mongoose.model<IProject>('Project', projectSchema);

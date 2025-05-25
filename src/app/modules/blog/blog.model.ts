@@ -17,7 +17,7 @@ const blogSchema = new Schema<IArticle>(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export default mongoose.model<IArticle>('Blog', blogSchema);

@@ -1,6 +1,6 @@
 // blog.service.ts
 import Blog from './blog.model';
-import { IBlogInput } from './blog.types';
+import { IArticle, IBlogInput } from './blog.types';
 
 const createBlog = async (data: IBlogInput) => {
   return await Blog.create(data);
@@ -14,9 +14,27 @@ const getBlogBySlug = async (slug: string) => {
   return await Blog.findOne({ slug });
 };
 
-const updateBlog = async (slug: string, data: Partial<IBlogInput>) => {
-  return await Blog.findOneAndUpdate({ slug }, data, { new: true });
+
+
+const updateBlogBySlug = async (
+  slug: string,
+  updateData: Partial<IArticle>
+): Promise<IArticle | null> => {
+
+
+    const updated = await Blog.findOneAndUpdate(
+        { slug },
+        updateData,     
+        { new: true, runValidators: true }
+    );
+  if (!updated) {
+    throw new Error('Blog not found');
+  }
+  return updated;
 };
+
+
+
 
 const deleteBlog = async (slug: string) => {
   return await Blog.findOneAndDelete({ slug });
@@ -26,6 +44,6 @@ export default {
   createBlog,
   getAllBlogs,
   getBlogBySlug,
-  updateBlog,
+  updateBlogBySlug,
   deleteBlog,
 };

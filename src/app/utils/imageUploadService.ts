@@ -2,7 +2,7 @@ import cloudinary from '../utils/cloudinary';
 
 export const uploadImageToCloudinary = async (
   buffer: Buffer,
-  folder = 'sb-projects'
+  folder = 'sb-projects',
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
     cloudinary.uploader

@@ -1,10 +1,9 @@
 import express, { Application, Request, Response } from 'express';
-import cors from 'cors';    
-import helmet from 'helmet'
+import cors from 'cors';
+import helmet from 'helmet';
 import { AppError } from './app/error/appError';
 import AppRoutes from './app/routes/index';
 import { globalErrorHandler } from './app/middlewares/globalErrorHandler';
-
 
 const app: Application = express();
 

@@ -1,6 +1,4 @@
-
-
-import  {  Document } from "mongoose";
+import { Document } from 'mongoose';
 
 export interface IProject extends Document {
   title: string;
@@ -26,5 +24,3 @@ export interface IProject extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
-
-
