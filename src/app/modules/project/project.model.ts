@@ -5,6 +5,7 @@ const projectSchema = new Schema<IProject>(
   {
     title: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
+    shortDescription: { type: String, required: true },
     category: { type: String, required: true },
     client: { type: String, required: true },
     timeframe: { type: String, required: true },

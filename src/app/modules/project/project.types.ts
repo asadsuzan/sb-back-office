@@ -5,6 +5,7 @@ import  {  Document } from "mongoose";
 export interface IProject extends Document {
   title: string;
   slug: string;
+  shortDescription: string;
   category: string;
   client: string;
   timeframe: string;
