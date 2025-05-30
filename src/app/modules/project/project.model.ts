@@ -3,15 +3,71 @@ import { IProject } from './project.types';
 
 const projectSchema = new Schema<IProject>(
   {
-    title: { type: String, required: true },
-    slug: { type: String, required: true, unique: true },
-    shortDescription: { type: String, required: true },
-    category: { type: String, required: true },
-    client: { type: String, required: true },
-    timeframe: { type: String, required: true },
-
-    githubUrl: { type: String },
-    liveDemoUrl: { type: String },
+    basicInfo: {
+      title: { type: String, required: true },
+      slug: { type: String, required: true, unique: true },
+      description: { type: String, required: true },
+    },
+    meta: {
+      status: {
+        type: String,
+        enum: ['planned', 'in-progress', 'completed'],
+        default: 'completed',
+      },
+      category: {
+        type: String,
+        enum: [
+          'web-development',
+          'mobile-app',
+          'data-science',
+          'machine-learning',
+          'game-development',
+          'devops',
+          'ui-ux-design',
+          'other',
+          'full-stack-development',
+          'cloud-computing',
+          'cybersecurity',
+          'blockchain',
+          'internet-of-things',
+          'artificial-intelligence',
+          'augmented-reality',
+          'virtual-reality',
+          'natural-language-processing',
+          'big-data',
+          'edge-computing',
+          'quantum-computing',
+          'robotics',
+          'automation',
+          'e-commerce',
+          'social-media',
+          'content-management',
+          'enterprise-software',
+          'healthcare-technology',
+          'fintech',
+          'education-technology',
+          'travel-technology',
+          'real-time-communication',
+          'supply-chain-management',
+          'digital-marketing',
+          'search-engine-optimization',
+          'mobile-game-development',
+          'web-game-development',
+          'desktop-application',
+        ],
+        required: true,
+      },
+      client: { type: String, required: true },
+      timeframe: {
+        type: String,
+        required: true,
+        match: /^[A-Za-z]{3} \d{4} – [A-Za-z]{3} \d{4}$/,
+      },
+    },
+    links: {
+      githubUrl: { type: String, required: true },
+      liveDemoUrl: { type: String, required: false },
+    },
 
     overview: {
       context: { type: String, required: true },
@@ -19,7 +75,7 @@ const projectSchema = new Schema<IProject>(
       objectives: [{ type: String, required: true }],
     },
 
-    screenshotUrl: {
+    screenshots: {
       type: [String],
       validate: {
         validator: function (arr: string[]) {
@@ -31,14 +87,14 @@ const projectSchema = new Schema<IProject>(
 
     features: [{ type: String, required: true }],
 
-    techStack: [
+    technologies: [
       {
         title: { type: String, required: true },
         description: { type: String, required: true },
       },
     ],
 
-    lessons: [{ type: String, required: true }],
+    lessonsLearned: [{ type: String, required: true }],
   },
   { timestamps: true },
 );
