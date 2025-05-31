@@ -87,12 +87,14 @@ const projectSchema = new Schema<IProject>(
 
     features: [{ type: String, required: true }],
 
-    technologies: [
-      {
-        title: { type: String, required: true },
-        description: { type: String, required: true },
-      },
-    ],
+    technologies: {
+      frontend: { type: String, required: true },
+      backend: { type: String, required: true },
+      database: { type: String, required: true },
+      realTime: { type: String, required: false },
+      deployment: { type: String, required: true },
+      thirdPartyAPI: { type: String, required: false },
+    },
 
     lessonsLearned: [{ type: String, required: true }],
   },

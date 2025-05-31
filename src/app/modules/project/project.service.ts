@@ -8,7 +8,6 @@ export const createProject = async (data: Partial<IProject>) => {
 
 export const getAllProjects = async () => {
   return await Project.find()
-    .select('title slug shortDescription screenshotUrl')
     .sort({ createdAt: -1 });
 };
 

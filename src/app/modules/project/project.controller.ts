@@ -7,19 +7,22 @@ import { uploadImageToCloudinary } from '../../utils/imageUploadService';
 export const createProject = asyncHandler(
   async (req: Request, res: Response) => {
     const data = JSON.parse(req.body.data);
-
     // Upload screenshots
     const files = req.files as Express.Multer.File[];
-    const screenshotUrl: string[] = [];
+    if (!files || files.length === 0) {
+      sendSuccessResponse(res, 400, 'At least one screenshot is required');
+      return;
+    }
+    const screenshots: string[] = [];
     for (const file of files || []) {
       const imgUrl = await uploadImageToCloudinary(file.buffer);
-      screenshotUrl.push(imgUrl);
+      screenshots.push(imgUrl);
     }
 
     // Save to DB
     const newProject = await projectService.createProject({
       ...data,
-      screenshotUrl,
+      screenshots,
     });
 
     res.status(201).json({ success: true, data: newProject });
