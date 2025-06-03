@@ -11,7 +11,11 @@ router.post(
 );
 router.get('/', projectController.getAllProjects);
 router.get('/:slug', projectController.getProjectBySlug);
-router.put('/:slug', projectController.updateProjectBySlug);
+router.put(
+  '/:slug',
+  upload.array('screenshots', 5), 
+  projectController.updateProjectBySlug,
+);;
 router.delete('/:slug', projectController.deleteProjectBySlug);
 
 export default router;

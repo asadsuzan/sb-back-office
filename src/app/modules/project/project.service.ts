@@ -15,11 +15,17 @@ export const getProjectBySlug = async (slug: string) => {
   return await Project.findOne({ "basicInfo.slug":slug });
 };
 
+
 export const updateProjectBySlug = async (
   slug: string,
   data: Partial<IProject>,
 ) => {
-  return await Project.findOneAndUpdate({ "basicInfo.slug":slug }, data, { new: true });
+  // Use $set to ensure only provided fields are updated, and not overwrite entire sub-objects
+  // For nested objects, if you send { "basicInfo.title": "New Title" }, Mongoose will update correctly.
+  // If you send { basicInfo: { title: "New Title" } }, it will replace the entire basicInfo object.
+  // The current approach in the controller sends a flat updateData object with nested keys like 'screenshots',
+  // which works with Mongoose's findOneAndUpdate.
+  return await Project.findOneAndUpdate({ "basicInfo.slug": slug }, { $set: data }, { new: true });
 };
 
 export const deleteProjectBySlug = async (slug: string) => {
