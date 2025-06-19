@@ -10,7 +10,11 @@ export const getAllProjects = async () => {
   return await Project.find()
     .sort({ createdAt: -1 });
 };
-
+ 
+export const getProjectSummaries= async()=>{
+  return await Project.find({}, { "basicInfo.title": 1, "basicInfo.slug": 1, "basicInfo.description": 1, screenshots: 1, meta: 1 })
+    .sort({ createdAt: -1 });
+}
 export const getProjectBySlug = async (slug: string) => {
   return await Project.findOne({ "basicInfo.slug":slug });
 };

@@ -10,6 +10,7 @@ router.post(
   projectController.createProject,
 );
 router.get('/', projectController.getAllProjects);
+router.get('/summaries', projectController.getProjectSummaries);
 router.get('/:slug', projectController.getProjectBySlug);
 router.put(
   '/:slug',

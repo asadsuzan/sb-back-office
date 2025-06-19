@@ -151,6 +151,14 @@ export const getAllProjects = asyncHandler(
   },
 );
 
+// @desc    Get project summaries
+export const getProjectSummaries = asyncHandler(
+  async (req: Request, res: Response) => {
+    const summaries = await projectService.getProjectSummaries();
+    sendSuccessResponse(res, 200, 'Project summaries fetched successfully', summaries);
+  },
+);
+
 // @desc    Get a project by slug
 export const getProjectBySlug = asyncHandler(
   async (req: Request, res: Response) => {
