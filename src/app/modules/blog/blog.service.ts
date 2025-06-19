@@ -30,7 +30,7 @@ const updateBlogBySlug = async (
   if (!updated) {
     throw new Error('Blog not found');
   }
-  return updated;
+  return updated.toObject() as unknown as IArticle;
 };
 
 
